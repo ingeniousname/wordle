@@ -238,6 +238,12 @@ void PuzzleWindow::drawOverlay(HDC hdc, HDC bufferhdc)
 	DeleteObject(oldBrush);
 }
 
+PuzzleWindow::~PuzzleWindow()
+{
+	if (IsWindow(hWnd))
+		DestroyWindow(hWnd);
+}
+
 PuzzleWindow::PuzzleWindow(HINSTANCE hInstance, int nCmdShow, HWND keyboardWindow, Level* currLevel, std::string* currentWord)
 {
 	this->currentLevel = currLevel;

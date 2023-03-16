@@ -10,9 +10,14 @@
 class Utils
 {
 public:
+	Utils() = delete;
+	Utils(const Utils& U) = delete;
+	Utils(const Utils&& U) = delete;
+
 	static HBRUSH brushes[4];
 	static HPEN pens[4];
 	static COLORREF colors[4];
+
 	static void initData();
 	static void deleteData();
 	static void drawLetter(HDC hdc, RECT rc, wchar_t c, int bkndType, COLORREF* colors);

@@ -29,6 +29,7 @@ class PuzzleWindow
 public:
 	bool finished = false, win = false;
 	int currRow, currColumn;
+	~PuzzleWindow();
 	PuzzleWindow(HINSTANCE hInstance, int nCmdShow, HWND keyboardWindow, Level* currentLevel, std::string* currentWord);
 	inline HWND getHWND() { return this->hWnd; };
 	inline wchar_t getLetter(int y, int x) { return content[y][x]; }

@@ -88,6 +88,8 @@ void KeyboardWindow::drawKeyboard(HDC hdc)
 		letteridx++;
 
 	}
+	DeleteObject(pen);
+	DeleteObject(nopen);
 }
 
 ATOM KeyboardWindow::registerKeyboardClass(HINSTANCE hInstance)
@@ -117,7 +119,7 @@ void KeyboardWindow::initKeyboardInstance(HINSTANCE hInstance, int nCmdShow)
 	windowRC.left = windowRC.top = 0;
 	windowRC.right = TILE_SIZE * 10 + BREAK * 11;
 	windowRC.bottom = TILE_SIZE * 3 + BREAK * 7;
-	AdjustWindowRect(&windowRC, WS_VISIBLE | WS_CAPTION, false);
+	AdjustWindowRectEx(&windowRC, WS_VISIBLE | WS_CAPTION, false, 0);
 	int sizeX = windowRC.right - windowRC.left;
 	int sizeY = windowRC.bottom - windowRC.top;
 
@@ -136,7 +138,7 @@ void KeyboardWindow::initKeyboardInstance(HINSTANCE hInstance, int nCmdShow)
 
 	// https://stackoverflow.com/questions/3970066/creating-a-transparent-window-in-c-win32
 	SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
-	SetLayeredWindowAttributes(hWnd, 0, 100, LWA_ALPHA);
+	SetLayeredWindowAttributes(hWnd, 0, 128, LWA_ALPHA);
 }
 
 LRESULT KeyboardWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -305,6 +307,12 @@ KeyboardWindow::KeyboardWindow(HINSTANCE hInstance, int nCmdShow, Game* game)
 	initKeyboardInstance(hInstance, nCmdShow);
 
 	
+}
+
+KeyboardWindow::~KeyboardWindow()
+{
+	if (IsWindow(hWnd))
+		DestroyWindow(hWnd);
 }
 
 void KeyboardWindow::setContentStatus(int k, int idx, LetterStatus S)

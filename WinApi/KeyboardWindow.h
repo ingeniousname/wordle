@@ -25,6 +25,7 @@ class KeyboardWindow
 
 public:
 	KeyboardWindow(HINSTANCE hInstance, int nCmdShow, Game* game);
+	~KeyboardWindow();
 	inline HWND getHWND() { return this->hWnd; };
 	void setContentStatus(int k, int idx, LetterStatus S);
 	inline LetterStatus getContentStatus(int k, int idx) { return keyboardStatus[k][idx]; }

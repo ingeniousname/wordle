@@ -200,7 +200,7 @@ LRESULT KeyboardWindow::WndProcKeyboard(UINT message, WPARAM wParam, LPARAM lPar
 		HDC hdc = GetDC(hWnd);
 		b.offDC = CreateCompatibleDC(hdc);
 		ReleaseDC(hWnd, hdc);
-		SetTimer(hWnd, 1, 1, NULL);
+		//SetTimer(hWnd, 1, 1, NULL);
 		break;
 
 	}
@@ -241,11 +241,11 @@ LRESULT KeyboardWindow::WndProcKeyboard(UINT message, WPARAM wParam, LPARAM lPar
 	case WM_TIMER:
 	{
 
-		ULONGLONG time = GetTickCount64();
-		std::wstring s = szTitleKeybord;
-		s += L": ";
-		s += std::to_wstring((time - TimeStart) / 1000) + L"." + std::to_wstring((time - TimeStart) % 1000);
-		SetWindowText(hWnd, s.c_str());
+		//ULONGLONG time = GetTickCount64();
+		//std::wstring s = szTitleKeybord;
+		//s += L": ";
+		//s += std::to_wstring((time - TimeStart) / 1000) + L"." + std::to_wstring((time - TimeStart) % 1000);
+		//SetWindowText(hWnd, s.c_str());
 		break;
 	}
 	case WM_KEYDOWN:

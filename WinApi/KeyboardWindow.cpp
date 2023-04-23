@@ -88,6 +88,7 @@ void KeyboardWindow::drawKeyboard(HDC hdc)
 		letteridx++;
 
 	}
+	oldPen = reinterpret_cast<HPEN>(SelectObject(hdc, oldPen));
 	DeleteObject(pen);
 	DeleteObject(nopen);
 }
@@ -231,7 +232,9 @@ LRESULT KeyboardWindow::WndProcKeyboard(UINT message, WPARAM wParam, LPARAM lPar
 		b.offOldBitmap = (HBITMAP)SelectObject(b.offDC, b.offBitmap);
 		RECT rc;
 		GetClientRect(hWnd, &rc);
-		FillRect(b.offDC, &rc, CreateSolidBrush(RGB(255, 255, 255)));
+		HBRUSH whiteBrush = CreateSolidBrush(RGB(255, 255, 255));
+		FillRect(b.offDC, &rc, whiteBrush);
+		DeleteObject(whiteBrush);
 		drawKeyboard(b.offDC);
 
 		BitBlt(hdc, 0, 0, rc.right, rc.bottom, b.offDC, 0, 0, SRCCOPY);

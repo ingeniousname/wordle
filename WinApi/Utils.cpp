@@ -33,7 +33,7 @@ void Utils::deleteData()
 void Utils::drawLetter(HDC hdc, RECT rc, wchar_t c, int bkndType, COLORREF* colors)
 {
 	const int fontSize = 18;
-	const static HFONT letterFont = CreateFont(
+	HFONT letterFont = CreateFont(
 		-MulDiv(fontSize, GetDeviceCaps(hdc, LOGPIXELSY), 72), // Height
 
 		0,
@@ -54,6 +54,8 @@ void Utils::drawLetter(HDC hdc, RECT rc, wchar_t c, int bkndType, COLORREF* colo
 	HFONT oldFont = (HFONT)SelectObject(hdc, letterFont);
 	SetBkMode(hdc, TRANSPARENT);
 	DrawText(hdc, &c, 1, &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	oldFont = (HFONT)SelectObject(hdc, oldFont);
+	DeleteObject(letterFont);
 }
 
 std::string Utils::getRandomWord(const std::set<std::string>& dict)
@@ -126,7 +128,7 @@ Level Utils::readIniFile()
 void Utils::printWhiteText(HDC hdc, RECT rc, std::string text)
 {
 	const int fontSize = 24;
-	const static HFONT letterFont = CreateFont(
+	HFONT letterFont = CreateFont(
 		-MulDiv(fontSize, GetDeviceCaps(hdc, LOGPIXELSY), 72), // Height
 
 		0,
@@ -142,8 +144,10 @@ void Utils::printWhiteText(HDC hdc, RECT rc, std::string text)
 		DEFAULT_QUALITY,
 		DEFAULT_PITCH | FF_SWISS,
 		_T(" Verdana "));
+
 	SetTextColor(hdc, RGB(255, 2552, 255));
 	HFONT oldFont = (HFONT)SelectObject(hdc, letterFont);
+	SelectObject(hdc, letterFont);
 	SetBkMode(hdc, TRANSPARENT);
 
 	wchar_t* t = new wchar_t[6];
@@ -152,6 +156,8 @@ void Utils::printWhiteText(HDC hdc, RECT rc, std::string text)
 
 
 	DrawText(hdc, t, 5, &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	oldFont = (HFONT)SelectObject(hdc, oldFont);
+	DeleteObject(oldFont);
 	delete[] t;
 
 }

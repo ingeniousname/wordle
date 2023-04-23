@@ -134,7 +134,9 @@ LRESULT PuzzleWindow::WndProcPuzzle(UINT message, WPARAM wParam, LPARAM lParam)
 		b.offOldBitmap = (HBITMAP)SelectObject(b.offDC, b.offBitmap);
 		RECT rc;
 		GetClientRect(hWnd, &rc);
-		FillRect(b.offDC, &rc, CreateSolidBrush(RGB(255, 255, 255)));
+		HBRUSH whiteBrush = CreateSolidBrush(RGB(255, 255, 255));
+		FillRect(b.offDC, &rc, whiteBrush);
+		DeleteObject(whiteBrush);
 		drawPuzzle(*currentLevel, b.offDC, Utils::brushes);
 
 		BitBlt(hdc, 0, 0, rc.right, rc.bottom, b.offDC, 0, 0, SRCCOPY);

@@ -9,6 +9,6 @@ The game allows to choose a difficulty level:
 
 The player tries to simultaneously guess the answer on all boards and gets feedback indicating which letters occupy the correct position on each board. To win, the answer from each board must be guessed in a set amount of rounds.
 
-![](https://raw.githubusercontent.com/ingeniousname/wordle/main/media/wordle.gif)
+![](media/wordle.gif)
 
 Shift+Tab is a secret cheat code!

@@ -4,10 +4,6 @@
 #include "enums.h"
 #include <cmath>
 
-
-
-
-
 bool PuzzleWindow::is_class_registered(HINSTANCE hInst, LPCWSTR cName)
 {
 	WNDCLASSEXW wcx;
